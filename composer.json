@@ -1,0 +1,20 @@
+{
+    "name": "brainx/wishlist",
+    "autoload": {
+        "psr-4": {
+            "Brainx\\Wishlist\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Balaj Toor",
+            "email": "37177196+balaj-toor98@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "^4.15",
+        "guzzlehttp/guzzle": "^7.10",
+        "vlucas/phpdotenv": "^5.6",
+        "slim/psr7": "^1.8"
+    }
+}
