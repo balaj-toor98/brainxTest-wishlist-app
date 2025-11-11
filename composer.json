@@ -1,10 +1,10 @@
 {
     "name": "brainx/wishlist",
     "autoload": {
-        "psr-4": {
-            "Brainx\\Wishlist\\": "src/"
-        }
-    },
+  "psr-4": {
+    "App\\": "src/"
+  }
+},
     "authors": [
         {
             "name": "Balaj Toor",

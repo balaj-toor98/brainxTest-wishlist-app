@@ -24,5 +24,5 @@ return array(
     'Fig\\Http\\Message\\' => array($vendorDir . '/fig/http-message-util/src'),
     'FastRoute\\' => array($vendorDir . '/nikic/fast-route/src'),
     'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
-    'Brainx\\Wishlist\\' => array($baseDir . '/src'),
+    'App\\' => array($baseDir . '/src'),
 );
