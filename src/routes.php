@@ -1,14 +1,37 @@
 <?php
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use App\ShopifyClient;
 
 return function($app) {
+    // CORS: allow only the Shopify storefront origin
+    $allowedOrigin = 'https://brainx-wishlist.myshopify.com';
+
+    // Respond to preflight requests
+    $app->options('/{routes:.+}', function (Request $req, Response $res) use ($allowedOrigin) {
+        return $res
+            ->withHeader('Access-Control-Allow-Origin', $allowedOrigin)
+            ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
+            ->withHeader('Access-Control-Allow-Credentials', 'true');
+    });
+
+    // Add CORS headers to all responses
+    $app->add(function (Request $request, RequestHandler $handler) use ($allowedOrigin) {
+        $response = $handler->handle($request);
+        return $response
+            ->withHeader('Access-Control-Allow-Origin', $allowedOrigin)
+            ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
+            ->withHeader('Access-Control-Allow-Credentials', 'true');
+    });
+
     $shopify = new ShopifyClient();
     $app->get('/', function($req, $res) {
-    $res->getBody()->write("Slim PHP Wishlist API is running 🚀");
-    return $res;
-});
+        $res->getBody()->write("Slim PHP Wishlist API is running 🚀");
+        return $res;
+    });
 
     // POST /api/wishlist/add
     $app->post('/api/wishlist/add', function(Request $req, Response $res) use ($shopify) {
