@@ -5,6 +5,10 @@ use App\ShopifyClient;
 
 return function($app) {
     $shopify = new ShopifyClient();
+    $app->get('/', function($req, $res) {
+    $res->getBody()->write("Slim PHP Wishlist API is running 🚀");
+    return $res;
+});
 
     // POST /api/wishlist/add
     $app->post('/api/wishlist/add', function(Request $req, Response $res) use ($shopify) {
