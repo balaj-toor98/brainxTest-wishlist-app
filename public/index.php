@@ -18,7 +18,7 @@ $app = AppFactory::create();
 $app->addBodyParsingMiddleware();
 
 // ------------------------------------------------------------
-// ✅ Global CORS middleware (handles all responses & errors)
+// Global CORS middleware (handles all responses & errors)
 // ------------------------------------------------------------
 $app->add(function (Request $request, RequestHandler $handler): Response {
     try {
@@ -55,7 +55,7 @@ $app->options('/{routes:.+}', function (Request $request, Response $response) {
 });
 
 // ------------------------------------------------------------
-// ✅ Root route (healthcheck)
+// Root route (healthcheck)
 // ------------------------------------------------------------
 $app->get('/', function ($req, $res) {
     $data = ['status' => 'ok', 'app' => 'Wishlist API running'];
@@ -64,12 +64,12 @@ $app->get('/', function ($req, $res) {
 });
 
 // ------------------------------------------------------------
-// ✅ Register API routes
+// Register API routes
 // ------------------------------------------------------------
 (require __DIR__ . '/../src/routes.php')($app);
 
 // ------------------------------------------------------------
-// ✅ Error Middleware (ensures JSON + CORS on 404)
+// Error Middleware (ensures JSON + CORS on 404)
 // ------------------------------------------------------------
 $errorMiddleware = $app->addErrorMiddleware(true, true, true);
 $errorMiddleware->setDefaultErrorHandler(function (
